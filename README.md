@@ -34,23 +34,25 @@ The script will perform the following steps:
 
 ### Input Directory Structure (`data`)
 
+```plaintext
 data/
 │
 ├── folder1/
-│ ├── image1.jpg
-│ ├── image2.png
-│ └── ...
+│   ├── image1.jpg
+│   ├── image2.png
+│   └── ...
 │
 ├── folder2/
-│ ├── image3.jpg
-│ ├── image4.png
-│ └── ...
+│   ├── image3.jpg
+│   ├── image4.png
+│   └── ...
 │
 └── ...
-
+```
 
 ### Output Directory Structure (`processed`)
 
+```plaintext
 processed/
 │
 ├── folder1/
@@ -68,7 +70,7 @@ processed/
 │ └── ...
 │
 └── ...
-
+```
 
 ## Notes
 
