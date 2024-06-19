@@ -1,33 +1,81 @@
-# Haze Airlight Color Estimation
+# Image Airlight Estimation Script
 
-Matlab code implementing the Airlight color estimation part of the [ICCP 2016 paper "Blind Dehazing Using Internal Patch Recurrence"](http://www.wisdom.weizmann.ac.il/~vision/BlindDehazing/blindDehazing_ICCP2016.pdf).
-Tested on Matlab 2016a working on Windows.
+This script processes images in a specified directory to estimate the airlight using internal patch recurrence. The estimated airlight values are then saved in both text and CSV formats.
 
-If you find our work useful in your research or publication, please cite it:
+## Prerequisites
 
-```
-@inproceedings{bahat2016blind,
-  title={Blind dehazing using internal patch recurrence},
-  author={Bahat, Yuval and Irani, Michal},
-  booktitle={Computational Photography (ICCP), 2016 IEEE International Conference on},
-  pages={1--9},
-  year={2016},
-  organization={IEEE}
-}
-```
-----------
+- MATLAB
+- Image Processing Toolbox
 
-## Functions:
-### 1. AirlightUsingPatchRecurrence(orgImage):
-The core function estimating the haze airlight color in the input image. The input image should be in the form of 3 (RGB) channels (double, values in the range of [0,1]).
-### 2. testAirlightEstimation:
-A script for testing the airlight estimation. Estimated airlight is presented alongside the corresponding image. This script also displays a ground truth airlight color, either saved in the GTairlights folder or manually extracted by the user.
-### 3. estimate4allImages:
-Serially computing the airlight color for all images in the 'images' sub-folder. Comparing the estimated airlights with the pre-determined GT airlights for images that contain a region of sky, and presenting the mean distance in RGB space.
+## Setup
+
+1. Place your images in subfolders within the `data` directory.
+2. Ensure that the `AirlightUsingPatchRecurrence` function is available in your MATLAB path.
+
+## Usage
+
+1. Copy the script into a new `.m` file in your MATLAB workspace.
+2. Run the script.
+
+The script will perform the following steps:
+
+1. Clear all variables and close all figures.
+2. Set the base directory for images (`data`) and the directory to save processed images (`processed`).
+3. Retrieve a list of all subfolders within the base directory.
+4. Initialize an empty array to store image file paths.
+5. Loop through each subfolder, retrieve all images with `.jpg`, `.jpeg`, and `.png` extensions, and store their file paths.
+6. Process each image in parallel to:
+   - Read the image.
+   - Estimate the airlight using the `AirlightUsingPatchRecurrence` function.
+   - Construct the save folder path within the `processed` directory.
+   - Save the estimated airlight values as both text and CSV files in the respective subfolder within `processed`.
+
+## File Structure
+
+### Input Directory Structure (`data`)
+
+data/
+│
+├── folder1/
+│ ├── image1.jpg
+│ ├── image2.png
+│ └── ...
+│
+├── folder2/
+│ ├── image3.jpg
+│ ├── image4.png
+│ └── ...
+│
+└── ...
 
 
-## Further comments:
-The 'images' sub-folder contain example images, and the 'GTairlights' sub-folder contains ground truth airlight colors for images containing regions of sky.
-This code uses the nearest neighbors search engine by Shai Bagon, named ANN. For convinience, it appears as-is in the ann_wrapper sub-folder.
+### Output Directory Structure (`processed`)
 
-The code is provided as-is for academic use only and without any guarantees. Please contact the author to report any bugs. Written by [Yuval Bahat](http://www.wisdom.weizmann.ac.il/~ybahat/).
+processed/
+│
+├── folder1/
+│ ├── image1_estimatedAirlight.txt
+│ ├── image1_estimatedAirlight.csv
+│ ├── image2_estimatedAirlight.txt
+│ ├── image2_estimatedAirlight.csv
+│ └── ...
+│
+├── folder2/
+│ ├── image3_estimatedAirlight.txt
+│ ├── image3_estimatedAirlight.csv
+│ ├── image4_estimatedAirlight.txt
+│ ├── image4_estimatedAirlight.csv
+│ └── ...
+│
+└── ...
+
+
+## Notes
+
+- Ensure that the `data` directory exists and contains subfolders with images.
+- The script uses `parfor` for parallel processing; ensure you have the Parallel Computing Toolbox installed.
+- Modify `baseDir` and `processedBaseDir` variables if your directory structure differs.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for more details.
